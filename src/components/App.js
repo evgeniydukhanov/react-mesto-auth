@@ -1,48 +1,53 @@
-import React from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Main from "./Main";
-import "../index.css";
-import PopupWithForm from "./PopupWithForm";
-import ImagePopup from "./ImagePopup";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import api from "../utils/Api";
-import EditProfilePopup from "../components/EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import AddPlacePopup from "./AddPlacePopup";
+import React from 'react'
+import Header from './Header';
+import Footer from './Footer';
+import Main from './Main';
+import '../index.css';
+import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import api from '../utils/Api';
+import EditProfilePopup from '../components/EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
+
 
 function App() {
-  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
-    React.useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
-    React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({
-    name: "",
-    link: "",
-  });
-  const [currentUser, setCurrentUser] = React.useState({});
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' });
+  const [currentUser, setCurrentUser] = React.useState('')
   const [cards, setCards] = React.useState([]);
+  React.useEffect(() => {
+    api.getCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch(err => `Не удалось получить карточки с сервера : ${err}`)
+  }, []);
+
 
   React.useEffect(() => {
     Promise.all([api.getCards(), api.getUserInfo()])
 
       .then(([cards, userInfo]) => {
         setCurrentUser(userInfo);
-        setCards(cards);
+        setCards(cards)
       })
-      .catch((err) => `Данные пользователя не получены : ${err}`);
+      .catch(err => `Данные пользователя не получены : ${err}`)
   }, []);
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
     api.cardLike(card._id, isLiked).then((newCard) => {
-      setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+      setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
     });
   }
   function handleCardDelete(card) {
-    api.deleteCard(card._id).then(() => {
-      setCards((state) => state.filter((c) => c._id !== card._id));
-    });
+    api.deleteCard(card._id)
+      .then(() => {
+        setCards((state) => state.filter((c) => c._id !== card._id))
+      });
   }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -57,34 +62,31 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
-    setSelectedCard({ name: "", link: "" });
+    setSelectedCard({ name: '', link: '' })
   }
   function handleCardClick(cardInfo) {
     setSelectedCard({ name: cardInfo.name, link: cardInfo.link });
   }
   function handleUpdateUser(currentUser) {
-    api
-      .patchUserInfo({ name: currentUser.name, about: currentUser.about })
+    api.patchUserInfo({ name: currentUser.name, about: currentUser.about })
       .then((userInfo) => {
-        setCurrentUser(userInfo);
+        setCurrentUser(userInfo)
       })
-      .catch((err) => `Не обновился профиль ${err}`);
+      .catch(err => `Не обновился профиль ${err}`)
   }
   function handleUpdateAvatar(avatar) {
-    api
-      .patchAvatar(avatar)
+    api.patchAvatar(avatar)
       .then((userInfo) => {
-        setCurrentUser(userInfo);
+        setCurrentUser(userInfo)
       })
-      .catch((err) => `Не удалось обновить аватар ${err}`);
+      .catch(err => `Не удалось обновить аватар ${err}`)
   }
   function handleAddCard({ name, link }) {
-    api
-      .addCard({ name, link })
+    api.addCard({name, link} )
       .then((newCard) => {
-        setCards([newCard, ...cards]);
+        setCards([newCard, ...cards])
       })
-      .catch((err) => `не удалось добавить карточку ${err}`);
+      .catch(err => `не удалось добавить карточку ${err}`)
   }
 
   return (
@@ -140,11 +142,15 @@ function App() {
             </span>
           </PopupWithForm> */}
           <PopupWithForm
-            title="Вы уверены?"
-            name="element"
-            buttonText="Да"
-          ></PopupWithForm>
-          <ImagePopup card={selectedCard} onClose={closeAllPopups} />
+            title='Вы уверены?'
+            name='element'
+            buttonText='Да'
+          >
+          </PopupWithForm>
+          <ImagePopup
+            card={selectedCard}
+            onClose={closeAllPopups}
+          />
         </div>
       </div>
     </CurrentUserContext.Provider>
