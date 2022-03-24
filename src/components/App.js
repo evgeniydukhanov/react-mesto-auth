@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from './Header';
-import Footer from './Footer';
 import Main from './Main';
 import '../index.css';
 import PopupWithForm from './PopupWithForm';
@@ -10,6 +9,9 @@ import api from '../utils/Api';
 import EditProfilePopup from '../components/EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import { Route, Redirect,Switch} from 'react-router-dom';
+import Login from './Login'
+
 
 
 function App() {
@@ -19,6 +21,16 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' });
   const [currentUser, setCurrentUser] = React.useState('')
   const [cards, setCards] = React.useState([]);
+  const [loggedIn, setLoggedIn] = React.useState(false)
+  const propsMain ={
+    onEditProfile:handleEditProfileClick,
+    onAddPlace:handleAddPlaceClick,
+    onEditAvatar:handleEditAvatarClick,
+    onCardClick:handleCardClick,
+    onCardLike:handleCardLike,
+    onCardDelete:handleCardDelete,
+    cards:cards
+  }
   React.useEffect(() => {
     api.getCards()
       .then((cards) => {
@@ -94,16 +106,6 @@ function App() {
       <div className="body">
         <div className="page">
           <Header />
-          <Main
-            onEditProfile={handleEditProfileClick}
-            onAddPlace={handleAddPlaceClick}
-            onEditAvatar={handleEditAvatarClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            onCardDelete={handleCardDelete}
-            cards={cards}
-          />
-          <Footer />
           <EditProfilePopup
             onClose={closeAllPopups}
             isOpen={isEditProfilePopupOpen}
@@ -119,28 +121,6 @@ function App() {
             isOpen={isEditAvatarPopupOpen}
             onUpdateAvatar={handleUpdateAvatar}
           />
-          {/* <PopupWithForm
-            title='Обновить аватар'
-            name='avatar'
-            isOpen={isEditAvatarPopupOpen}
-            onClose={closeAllPopups}
-            buttonText='Сохранить'
-          >
-            <input
-              id="avatar-link"
-              className="popup__input-text popup__input-text_type_avatarLink"
-              type="url"
-              name="avatar"
-              defaultValue=""
-              placeholder="Ссылка на изображение"
-              required
-            />
-            <span
-              id='avatar-link-error'
-              className="error">
-              Введите адрес сайта
-            </span>
-          </PopupWithForm> */}
           <PopupWithForm
             title='Вы уверены?'
             name='element'
@@ -151,6 +131,21 @@ function App() {
             card={selectedCard}
             onClose={closeAllPopups}
           />
+          <Switch>
+
+          <Route exact path ="/">
+          {loggedIn ? <Main {...propsMain}/> : <Redirect to="/sign-in"/>}
+          </Route>
+
+          <Route path="/sign-in">
+          <Login
+          buttonText="Войти"/>
+          </Route>
+
+          <Route path="/sign-up">
+          </Route>
+          
+          </Switch>
         </div>
       </div>
     </CurrentUserContext.Provider>

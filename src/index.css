@@ -62,5 +62,7 @@
 @import url(./blocks/popup/__big-picture/popup__big-picture.css);
 @import url(./blocks/popup/__pic-container/popup__pic-container.css);
 
-
-
+@import url(./blocks/auth/auth.css);
+@import url(./blocks/auth/__heading/auth__heading.css);
+@import url(./blocks/auth/__submit/auth__submit.css);
+@import url(./blocks/auth/__input/auth__input.css);
