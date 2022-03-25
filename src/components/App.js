@@ -9,8 +9,10 @@ import api from '../utils/Api';
 import EditProfilePopup from '../components/EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
-import { Route, Redirect,Switch} from 'react-router-dom';
-import Login from './Login'
+import { Route,Switch} from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
 
 
 
@@ -21,7 +23,7 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState({ name: '', link: '' });
   const [currentUser, setCurrentUser] = React.useState('')
   const [cards, setCards] = React.useState([]);
-  const [loggedIn, setLoggedIn] = React.useState(false)
+  // const [loggedIn, setLoggedIn] = React.useState(false)
   const propsMain ={
     onEditProfile:handleEditProfileClick,
     onAddPlace:handleAddPlaceClick,
@@ -133,18 +135,19 @@ function App() {
           />
           <Switch>
 
-          <Route exact path ="/">
-          {loggedIn ? <Main {...propsMain}/> : <Redirect to="/sign-in"/>}
-          </Route>
+          <ProtectedRoute exact path="/" component={<Main {...propsMain}/>} />
 
           <Route path="/sign-in">
           <Login
-          buttonText="Войти"/>
+          buttonText="Войти"
+          />
           </Route>
 
           <Route path="/sign-up">
+          <Register
+          buttonText="Зарегистрироваться"
+          />
           </Route>
-          
           </Switch>
         </div>
       </div>

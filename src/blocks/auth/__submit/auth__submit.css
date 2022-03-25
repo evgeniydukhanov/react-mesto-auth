@@ -2,7 +2,6 @@
     width: 358px;
     height: 50px;
     padding: 0;
-    margin: 48px 36px 37px 36px;
     background-color: white;
     color: black;
     font-family: Inter, Arial, sans-serif;
@@ -13,4 +12,5 @@
     border-radius: 2px;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    margin:216px 0 0 0;
 }
