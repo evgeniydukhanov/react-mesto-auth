@@ -14,3 +14,7 @@
     transition: opacity 0.3s ease;
     margin:216px 0 0 0;
 }
+
+.auth__submit:hover{
+    opacity: 0.85;
+}

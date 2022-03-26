@@ -1,9 +1,9 @@
-.auth__redirectLink{
-    font-size:14px;
+.header__redirectLink{
+    font-size:18px;
     color:white;
     font-family: Inter, Arial, sans-serif;
     font-weight: 400;
     line-height: 17px;
-    margin: 15px 0 0 0;
+    margin: 0;
     text-decoration: none;
 }
