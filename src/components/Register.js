@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import auth from '../utils/auth.js';
 
 function Register(props) {
   const [email, setEmail] = React.useState('');
@@ -13,7 +12,7 @@ function Register(props) {
   }
   function handleSubmitRegistration(e) {
     e.preventDefault();
-    auth.registration({email,password})
+    props.onSubmit({email,password})
   }
   return (
     <section className="auth">

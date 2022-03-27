@@ -1,5 +1,5 @@
 .popup {
-  position: fixed;
+  position: absolute;
   display: flex;
   visibility: hidden;
   opacity: 0;

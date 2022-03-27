@@ -19,7 +19,7 @@ function Card(props) {
         props.onCardLike(props.card);
     }
     function handleDeleteClick(){
-        props.onCardDelete(props.card)
+        props.onConfirmDelete(props.card)
     }
 
     return (

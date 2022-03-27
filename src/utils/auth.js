@@ -20,9 +20,6 @@ class Auth {
             })
         })
             .then(this._handleResponse)
-            .then((data) => {
-                localStorage.setItem('token', data.token)
-            })
     };
     authorization({ email, password }) {
         return fetch(`${this._address}/signin`, {
@@ -44,8 +41,8 @@ class Auth {
                 authorization: `Bearer ${jwt}`,
                 "Content-Type": "application/json"
             }
-                .then(this._handleResponse)
         })
+            .then(this._handleResponse)
     }
 }
 const auth = new Auth('https://auth.nomoreparties.co')

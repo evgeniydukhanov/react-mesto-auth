@@ -6,7 +6,6 @@
   position: relative;
   background-repeat: no-repeat;
   background-size :cover;
-  /* pointer-events: none; */
 }
 
 .profile__avatar::before {
@@ -20,7 +19,6 @@
   right: 0;
   transition: 1s;
   background-position: center;
-  /* pointer-events: all; */
 }
 
 .profile__avatar:hover::before {

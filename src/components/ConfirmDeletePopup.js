@@ -1,8 +1,11 @@
-import React from 'react'
+import React from "react";
 
-
-function PopupWithForm(props) {
-
+function ConfirmDeletePopup(props) {
+    function handleSubmit(e) {
+        e.preventDefault();
+        props.handleCardDelete();
+        props.onClose();
+      }
     return (
         <div className={props.isOpen
             ? `popup popup_type_${props.name} popup_opened`
@@ -11,9 +14,9 @@ function PopupWithForm(props) {
             <div className="popup__container">
                 <button className="popup__close-button" onClick={props.onClose} type="button" ></button>
                 <h2 className="popup__heading">{props.title}</h2>
-                <form className="popup__input popup__input_info" name={`${props.name}`} onSubmit={props.onSubmit}>
+                <form className="popup__input popup__input_info" name={`${props.name}`} onSubmit={handleSubmit}>
                     {props.children}
-                    <button className={`popup__save-button ${props.isDisable && "popup__save-button_disabled" }`} type="submit" disabled={props.isDisable && 'disabled'}> {props.buttonText}
+                    <button className="popup__save-button" type="submit"> {props.buttonText}
                     </button>
                 </form>
             </div>
@@ -21,4 +24,4 @@ function PopupWithForm(props) {
     )
 }
 
-export default PopupWithForm;
+export default ConfirmDeletePopup;
