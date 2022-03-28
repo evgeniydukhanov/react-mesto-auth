@@ -50,7 +50,7 @@ function Main({
           />
         ))}
       </section>
-        <Footer />
+      <Footer />
     </main>
   );
 }

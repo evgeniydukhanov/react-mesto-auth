@@ -1,7 +1,8 @@
-.header__info{
-    font-size:18px;
-    color:white;
-    font-family: Inter, Arial, sans-serif;
-    font-weight: 500;
-    line-height: 22px;
+.header__info {
+  font-size: 18px;
+  color: white;
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 22px;
+  margin: 15px 24px 0 0;
 }

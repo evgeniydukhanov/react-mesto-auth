@@ -1,9 +1,9 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Register(props) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   function handleChangeEmail(e) {
     setEmail(e.target.value);
   }
@@ -12,7 +12,7 @@ function Register(props) {
   }
   function handleSubmitRegistration(e) {
     e.preventDefault();
-    props.onSubmit({email,password})
+    props.onSubmit({ email, password });
   }
   return (
     <section className="auth">
@@ -38,14 +38,13 @@ function Register(props) {
           minLength="8"
           maxLength="16"
         />
-        <button
-          className="auth__submit"
-          type="submit"
-        >
+        <button className="auth__submit" type="submit">
           {props.buttonText}
         </button>
       </form>
-      <Link to="/sign-in" className="auth__redirectLink">Уже зарегистрированы? Войти</Link>
+      <Link to="/sign-in" className="auth__redirectLink">
+        Уже зарегистрированы? Войти
+      </Link>
     </section>
   );
 }

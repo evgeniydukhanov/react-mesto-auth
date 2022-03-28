@@ -1,8 +1,8 @@
 import React from "react";
 
 function Login(props) {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   function handleChangeEmail(e) {
     setEmail(e.target.value);
   }
@@ -11,7 +11,7 @@ function Login(props) {
   }
   function handleSubmitLogin(e) {
     e.preventDefault();
-    props.onSubmit({password,email})
+    props.onSubmit({ password, email });
   }
   return (
     <section className="auth">
@@ -35,13 +35,9 @@ function Login(props) {
           onChange={handleChangePassword}
           value={password}
         />
-        <button
-          className="auth__submit"
-          type="submit"
-        >
+        <button className="auth__submit" type="submit">
           {props.buttonText}
         </button>
-
       </form>
     </section>
   );

@@ -16,9 +16,9 @@ function Header({onSignOut}) {
         <Link className="auth__redirectLink" to='/sign-up'>Регистрация</Link>
       </Route>
       <Route exact path="/">
-        <div>
-        <p className="header__info" style={{color:'white'}} >{email} </p>
-        <Link className="auth__redirectLink" to='/sign-in' onClick={onSignOut}> Выйти </Link>
+        <div className='header__menu'>
+        <p className="header__info" style={{color:'white'}} > {email} </p>
+        <Link className="auth__redirectLink"style={{color:'#A9A9A9'}} to='/sign-in' onClick={onSignOut}> Выйти </Link>
         </div>
       </Route>
     </header>
