@@ -45,14 +45,6 @@ function App() {
     cards: cards
   }
   const history = useHistory();
-  // React.useEffect(() => {
-  //   api.getCards()
-  //     .then((cards) => {
-  //       setCards(cards);
-  //     })
-  //     .catch(err => `Не удалось получить карточки с сервера : ${err}`)
-  // }, []);
-
 
   React.useEffect(() => {
     checkTocken();
@@ -74,7 +66,8 @@ function App() {
     api.deleteCard(isDeleteCard)
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== isDeleteCard))
-      });
+      })
+      .catch((err)=> console.log(err))
   }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
