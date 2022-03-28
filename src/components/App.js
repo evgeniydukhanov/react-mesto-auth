@@ -45,21 +45,22 @@ function App() {
     cards: cards
   }
   const history = useHistory();
-  React.useEffect(() => {
-    api.getCards()
-      .then((cards) => {
-        setCards(cards);
-      })
-      .catch(err => `Не удалось получить карточки с сервера : ${err}`)
-  }, []);
+  // React.useEffect(() => {
+  //   api.getCards()
+  //     .then((cards) => {
+  //       setCards(cards);
+  //     })
+  //     .catch(err => `Не удалось получить карточки с сервера : ${err}`)
+  // }, []);
 
 
   React.useEffect(() => {
+    checkTocken();
+    if(loggedIn)
     Promise.all([api.getCards(), api.getUserInfo()])
       .then(([cards, userInfo]) => {
         setCurrentUser({ ...currentUser, ...userInfo });
         setCards(cards)
-        checkTocken();
       })
       .catch(err => `Данные пользователя не получены : ${err}`)
   }, [loggedIn]);
@@ -160,11 +161,13 @@ function App() {
         .then(({ data: { email } }) => {
           setCurrentUser({ ...currentUser, email })
         })
+        .catch((err)=> console.log(err))
     }
   }
   function signOut() {
     localStorage.removeItem('jwt')
     setLoggedIn(false)
+    history.push('/sign-in')
   }
 
   return (
