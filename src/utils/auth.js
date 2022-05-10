@@ -23,6 +23,7 @@ class Auth {
   authorization({ email, password }) {
     return fetch(`${this._address}/signin`, {
       method: "POST",
+      credentials: 'include',
       headers: {
         "Content-Type": "application/json",
       },
@@ -35,6 +36,7 @@ class Auth {
   getUser(jwt) {
     return fetch(`${this._address}/users/me`, {
       method: "GET",
+      credentials: 'include',
       headers: {
         authorization: `Bearer ${jwt}`,
         "Content-Type": "application/json",
@@ -42,5 +44,5 @@ class Auth {
     }).then(this._handleResponse);
   }
 }
-const auth = new Auth("https://auth.nomoreparties.co");
+const auth = new Auth("https://api.mesto-backend.nomoredomains.xyz");
 export default auth;

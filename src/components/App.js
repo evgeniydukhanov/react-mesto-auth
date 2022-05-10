@@ -19,7 +19,7 @@ import InfoToolTip from './InfoToolTip';
 import successRegistration from "../images/Union.png"
 import unSuccessRegistration from "../images/Union2.png"
 import ConfirmDeletePopup from './ConfirmDeletePopup';
-import {defaultUser} from '../utils/constants';
+import { defaultUser } from '../utils/constants';
 
 
 
@@ -34,7 +34,7 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(false)
   const [messageTooltip, setMessageTooltip] = React.useState({})
   const [isDeletePopupOpen, setisDeletePopupOpen] = React.useState(false)
-  const [isDeleteCard, setIsDeleteCard]= React.useState('')
+  const [isDeleteCard, setIsDeleteCard] = React.useState('')
   const propsMain = {
     onEditProfile: handleEditProfileClick,
     onAddPlace: handleAddPlaceClick,
@@ -48,13 +48,13 @@ function App() {
 
   React.useEffect(() => {
     checkTocken();
-    if(loggedIn)
-    Promise.all([api.getCards(), api.getUserInfo()])
-      .then(([cards, userInfo]) => {
-        setCurrentUser({ ...currentUser, ...userInfo });
-        setCards(cards)
-      })
-      .catch(err => `Данные пользователя не получены : ${err}`)
+    if (loggedIn)
+      Promise.all([api.getCards(), api.getUserInfo()])
+        .then(([cards, userInfo]) => {
+          setCurrentUser({ ...currentUser, ...userInfo });
+          setCards(cards)
+        })
+        .catch(err => `Данные пользователя не получены : ${err}`)
   }, [loggedIn]);
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
@@ -67,7 +67,7 @@ function App() {
       .then(() => {
         setCards((state) => state.filter((c) => c._id !== isDeleteCard))
       })
-      .catch((err)=> console.log(err))
+      .catch((err) => console.log(err))
   }
   function handleEditAvatarClick() {
     setIsEditAvatarPopupOpen(true);
@@ -137,7 +137,7 @@ function App() {
         localStorage.setItem('jwt', token)
         setLoggedIn(true)
         history.push('/')
-       
+
       })
       .catch((err) => {
         console.log(err);
@@ -149,12 +149,12 @@ function App() {
   function checkTocken() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      setLoggedIn(true)
       auth.getUser(jwt)
-        .then(({ data: { email } }) => {
+        .then(([{ email }] ) => {
           setCurrentUser({ ...currentUser, email })
+          setLoggedIn(true)
         })
-        .catch((err)=> console.log(err))
+        .catch((err) => console.log(err))
     }
   }
   function signOut() {
@@ -216,12 +216,12 @@ function App() {
           onClose={closeAllPopups}
         />
         <ConfirmDeletePopup
-        title="Вы уверены?"
-        onClose={closeAllPopups}
-        handleCardDelete={handleCardDelete}
-        name='confirmDelete'
-        buttonText='Да'
-        isOpen={isDeletePopupOpen}
+          title="Вы уверены?"
+          onClose={closeAllPopups}
+          handleCardDelete={handleCardDelete}
+          name='confirmDelete'
+          buttonText='Да'
+          isOpen={isDeletePopupOpen}
         />
         <ImagePopup
           card={selectedCard}

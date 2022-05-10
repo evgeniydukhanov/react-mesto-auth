@@ -4,4 +4,5 @@ export const defaultUser = {
     cohort: "cohort-35",
     name: "Гипножаба",
     _id: "b0c769d76623a6e5018d16c2",
+    emai:'',
   }
